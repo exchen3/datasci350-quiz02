@@ -1,0 +1,40 @@
+---
+title: "Country Analysis"
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+This page analyzes how life expectancy, GDP per capita, and population have changed over time for a specific country in the Gapminder dataset.
+
+```{python}
+import pandas as pd
+import plotly.express as px
+
+# Load the dataset
+df = pd.read_csv("gapminder.csv")
+
+# Choose a country
+country_name = "United States"
+
+# Filter data for that country
+country_df = df[df["country"] == country_name].sort_values("year")
+
+# Create line plot
+fig = px.line(
+    country_df,
+    x="year",
+    y=["life_expectancy", "gdp_per_capita", "population_millions"],
+    markers=True,
+    labels={
+        "year": "Year",
+        "value": "Value",
+        "variable": "Metric"
+    },
+    title=f"Changes Over Time: {country_name}"
+)
+
+fig.show()
+``` 
+
