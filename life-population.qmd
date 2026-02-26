@@ -1,0 +1,34 @@
+---
+title: "Life Expectancy and Population"
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+This page explores the relationship between life expectancy and population across countries over time using the Gapminder dataset.
+
+```{python}
+import pandas as pd
+import plotly.express as px
+
+df = pd.read_csv("gapminder.csv")
+
+fig = px.scatter(
+    df,
+    x="population_millions",
+    y="life_expectancy",
+    animation_frame="year",
+    animation_group="country",
+    color="continent",
+    hover_name="country",
+    log_x=True,
+    labels={
+        "population_millions": "Population (millions, log scale)",
+        "life_expectancy": "Life Expectancy (years)"
+    },
+    title="Life Expectancy vs Population Over Time"
+)
+
+fig.show()
+```
